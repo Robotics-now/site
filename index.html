@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tech Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-glow: #3b82f6;
+            --accent-bright: #60a5fa;
+            --border-color: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 740px;
+            width: 100%;
+        }
+
+        /* Profile Header Section */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-glow);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, #ffffff, var(--accent-bright));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border-color), transparent);
+            margin: 30px 0;
+        }
+
+        /* Section Headings with Custom Documentation Symbols */
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-main);
+        }
+
+        h2 .symbol {
+            color: var(--accent-bright);
+            font-size: 1.2rem;
+        }
+
+        /* Cards and Lists Layout */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        .grid-list {
+            list-style: none;
+        }
+
+        .grid-list li {
+            margin-bottom: 16px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .grid-list li::before {
+            content: "•";
+            color: var(--accent-bright);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        strong {
+            color: var(--accent-bright);
+            font-weight: 600;
+        }
+
+        .description-text {
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-size: 0.95rem;
+        }
+
+        /* Quote / YouTube Box callout */
+        blockquote {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent);
+            border-left: 4px solid var(--accent-glow);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 15px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Footer contact link styling */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-bright);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Header -->
+        <header>
+            <!-- Replace image src with your actual avatar file path if needed -->
+            <img class="avatar" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=150&q=80" alt="Profile Space Avatar">
+            <h1>Welcome to My Space</h1>
+            <p class="subtitle">Developer • Hardware Enthusiast • Tech Creator</p>
+        </header>
+
+        <hr>
+
+        <!-- Section 1: Projects & Development -->
+        <section class="card">
+            <h2><span class="symbol">❖</span> Projects &amp; Development</h2>
+            <ul class="grid-list">
+                <li>
+                    <strong>API Frameworks</strong>
+                    <div class="description-text">Crafting blazing fast, modular, and production-ready backends using FastAPI.</div>
+                </li>
+                <li>
+                    <strong>Interactive Dashboards</strong>
+                    <div class="description-text">Designing responsive web data architectures and dynamic UI components using Streamlit.</div>
+                </li>
+                <li>
+                    <strong>Hardware &amp; Logic Control</strong>
+                    <div class="description-text">Programming microcontrollers like the ESP32, ESP8266, and Arduino for custom electronics and robotics hardware.</div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Section 2: Supported Languages -->
+        <section class="card">
+            <h2><span class="symbol">🌐</span> Core Stack &amp; Languages</h2>
+            <ul class="grid-list">
+                <li><strong>Python</strong> — Primary language used for web apps, scripts, and ecosystem automation.</li>
+                <li><strong>JavaScript</strong> — Leveraged for web interfaces and serverless Edge scripts like Cloudflare Workers.</li>
+                <li><strong>C++ / Arduino C</strong> — Written to control registry logic, sensor matrices, and low-level robotics execution.</li>
+            </ul>
+        </section>
+
+        <!-- Section 3: YouTube & Content Creation -->
+        <section class="card">
+            <h2><span class="symbol">🎥</span> RoboticsNow on YouTube</h2>
+            <p style="color: var(--text-muted);">When I'm not writing software or building circuits, I'm documenting the process to help other builders learn. On my technical channel, <strong>RoboticsNow</strong>, I showcase:</p>
+            
+            <blockquote>
+                Step-by-step controller integration, custom PCB assemblies, open-source code architecture breakdowns, and creative visual tech tutorials.
+            </blockquote>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>Want to collaborate? Reach out to me via my custom routed domain email.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
