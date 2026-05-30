@@ -1,222 +1,772 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Tech Portfolio</title>
-    <style>
-        :root {
-            --bg-color: #0b0f19;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-glow: #3b82f6;
-            --accent-bright: #60a5fa;
-            --border-color: #334155;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoboticsNow — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #060b14;
+      --surface:   #0d1526;
+      --card:      #111d33;
+      --border:    #1e3a5f;
+      --accent:    #00aaff;
+      --accent2:   #0066cc;
+      --text:      #e8f4ff;
+      --muted:     #6b8cad;
+      --red:       #ff4444;
+      --mono:      'Space Mono', monospace;
+      --sans:      'Syne', sans-serif;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-        }
+    html { scroll-behavior: smooth; }
 
-        .container {
-            max-width: 740px;
-            width: 100%;
-        }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        /* Profile Header Section */
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+    /* ── BACKGROUND GRID ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,170,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,170,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        .avatar {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            border: 3px solid var(--accent-glow);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
-            margin-bottom: 15px;
-        }
+    /* ── SCANLINE OVERLAY ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            letter-spacing: -0.025em;
-            margin-bottom: 8px;
-            background: linear-gradient(to right, #ffffff, var(--accent-bright));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
 
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 56px;
+      animation: fadeUp 0.7s ease both;
+    }
 
-        hr {
-            border: 0;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--border-color), transparent);
-            margin: 30px 0;
-        }
+    .avatar-wrap {
+      position: relative;
+      width: 120px;
+      height: 120px;
+    }
 
-        /* Section Headings with Custom Documentation Symbols */
-        h2 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-main);
-        }
+    .avatar-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: conic-gradient(var(--accent), var(--accent2), var(--accent));
+      animation: spin 4s linear infinite;
+    }
 
-        h2 .symbol {
-            color: var(--accent-bright);
-            font-size: 1.2rem;
-        }
+    .avatar-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 50%;
+      background: var(--bg);
+    }
 
-        /* Cards and Lists Layout */
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-        }
+    .avatar {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
 
-        .grid-list {
-            list-style: none;
-        }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
 
-        .grid-list li {
-            margin-bottom: 16px;
-            padding-left: 15px;
-            position: relative;
-        }
+    .name {
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        .grid-list li::before {
-            content: "•";
-            color: var(--accent-bright);
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
+    .tagline {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
 
-        strong {
-            color: var(--accent-bright);
-            font-weight: 600;
-        }
+    .tagline span { color: var(--muted); }
 
-        .description-text {
-            color: var(--text-muted);
-            margin-top: 4px;
-            font-size: 0.95rem;
-        }
+    /* ── SOCIAL PILLS ── */
+    .socials {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 4px;
+    }
 
-        /* Quote / YouTube Box callout */
-        blockquote {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent);
-            border-left: 4px solid var(--accent-glow);
-            padding: 16px 20px;
-            border-radius: 0 8px 8px 0;
-            margin-top: 15px;
-            color: var(--text-muted);
-            font-style: italic;
-        }
+    .pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      border: 1px solid;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
 
-        /* Footer contact link styling */
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
+    .pill-yt {
+      background: rgba(255,68,68,0.08);
+      border-color: rgba(255,68,68,0.4);
+      color: #ff6b6b;
+    }
 
-        footer a {
-            color: var(--accent-bright);
-            text-decoration: none;
-            font-weight: 500;
-        }
+    .pill-yt:hover {
+      background: rgba(255,68,68,0.18);
+      box-shadow: 0 0 20px rgba(255,68,68,0.3);
+      transform: translateY(-2px);
+    }
 
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    .pill-gh {
+      background: rgba(0,170,255,0.08);
+      border-color: rgba(0,170,255,0.35);
+      color: var(--accent);
+    }
+
+    .pill-gh:hover {
+      background: rgba(0,170,255,0.18);
+      box-shadow: 0 0 20px rgba(0,170,255,0.3);
+      transform: translateY(-2px);
+    }
+
+    .pill svg { flex-shrink: 0; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 40px 0;
+    }
+
+    /* ── SECTION HEADING ── */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,170,255,0.04), transparent 60%);
+      pointer-events: none;
+    }
+
+    .card:hover {
+      border-color: rgba(0,170,255,0.45);
+      box-shadow: 0 0 32px rgba(0,170,255,0.1), 0 8px 24px rgba(0,0,0,0.4);
+      transform: translateY(-2px);
+    }
+
+    /* ── YOUTUBE CARD ── */
+    .yt-card {
+      background: linear-gradient(135deg, rgba(255,68,68,0.06), var(--card) 50%);
+      border-color: rgba(255,68,68,0.2);
+    }
+
+    .yt-card:hover {
+      border-color: rgba(255,68,68,0.45);
+      box-shadow: 0 0 32px rgba(255,68,68,0.1), 0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    .yt-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .yt-icon {
+      width: 44px;
+      height: 44px;
+      background: #ff4444;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .yt-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+
+    .yt-handle {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .channel-bio {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .content-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .tag.hot {
+      border-color: rgba(255,68,68,0.4);
+      color: #ff8888;
+      background: rgba(255,68,68,0.06);
+    }
+
+    .subscribe-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: #ff4444;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .subscribe-btn:hover {
+      background: #ff6666;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(255,68,68,0.4);
+    }
+
+    /* ── PROJECTS GRID ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .project-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .project-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .project-icon {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+
+    .project-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .project-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── STACK ── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .stack-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .stack-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: border-color 0.2s;
+    }
+
+    .stack-item:hover { border-color: var(--accent); }
+
+    .stack-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .stack-lang {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .stack-note {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    /* ── GITHUB CARD ── */
+    .gh-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .gh-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .gh-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .gh-label {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .gh-sub {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .arrow {
+      color: var(--accent);
+      font-size: 1.4rem;
+      opacity: 0.6;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .card:hover .arrow {
+      opacity: 1;
+      transform: translateX(4px);
+    }
+
+    /* ── GITHUB STATS ── */
+    .gh-stats-card { padding: 24px; }
+
+    .gh-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .gh-visit-btn {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid rgba(0,170,255,0.3);
+      padding: 6px 14px;
+      border-radius: 6px;
+      white-space: nowrap;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    .gh-visit-btn:hover {
+      background: rgba(0,170,255,0.1);
+      box-shadow: 0 0 12px rgba(0,170,255,0.2);
+    }
+
+    .gh-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 520px) {
+      .gh-stats-grid { grid-template-columns: 1fr; }
+    }
+
+    .gh-stat-img-wrap {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .gh-stat-img-wrap:hover { border-color: var(--accent); }
+
+    .gh-stat-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .gh-streak-wrap { margin-top: 0; }
+
+    .gh-streak-img { width: 100%; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+    .card:nth-child(4) { animation-delay: 0.4s; }
+  </style>
 </head>
 <body>
+<div class="wrap">
 
-    <div class="container">
-        
-        <!-- Header -->
-        <header>
-            <!-- Replace image src with your actual avatar file path if needed -->
-            <img class="avatar" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=150&q=80" alt="Profile Space Avatar">
-            <h1>Welcome to My Space</h1>
-            <p class="subtitle">Developer • Hardware Enthusiast • Tech Creator</p>
-        </header>
-
-        <hr>
-
-        <!-- Section 1: Projects & Development -->
-        <section class="card">
-            <h2><span class="symbol">❖</span> Projects &amp; Development</h2>
-            <ul class="grid-list">
-                <li>
-                    <strong>API Frameworks</strong>
-                    <div class="description-text">Crafting blazing fast, modular, and production-ready backends using FastAPI.</div>
-                </li>
-                <li>
-                    <strong>Interactive Dashboards</strong>
-                    <div class="description-text">Designing responsive web data architectures and dynamic UI components using Streamlit.</div>
-                </li>
-                <li>
-                    <strong>Hardware &amp; Logic Control</strong>
-                    <div class="description-text">Programming microcontrollers like the ESP32, ESP8266, and Arduino for custom electronics and robotics hardware.</div>
-                </li>
-            </ul>
-        </section>
-
-        <!-- Section 2: Supported Languages -->
-        <section class="card">
-            <h2><span class="symbol">🌐</span> Core Stack &amp; Languages</h2>
-            <ul class="grid-list">
-                <li><strong>Python</strong> — Primary language used for web apps, scripts, and ecosystem automation.</li>
-                <li><strong>JavaScript</strong> — Leveraged for web interfaces and serverless Edge scripts like Cloudflare Workers.</li>
-                <li><strong>C++ / Arduino C</strong> — Written to control registry logic, sensor matrices, and low-level robotics execution.</li>
-            </ul>
-        </section>
-
-        <!-- Section 3: YouTube & Content Creation -->
-        <section class="card">
-            <h2><span class="symbol">🎥</span> RoboticsNow on YouTube</h2>
-            <p style="color: var(--text-muted);">When I'm not writing software or building circuits, I'm documenting the process to help other builders learn. On my technical channel, <strong>RoboticsNow</strong>, I showcase:</p>
-            
-            <blockquote>
-                Step-by-step controller integration, custom PCB assemblies, open-source code architecture breakdowns, and creative visual tech tutorials.
-            </blockquote>
-        </section>
-
-        <!-- Footer -->
-        <footer>
-            <p>Want to collaborate? Reach out to me via my custom routed domain email.</p>
-        </footer>
-
+  <!-- ── HEADER ── -->
+  <header>
+    <div class="avatar-wrap">
+      <!-- Uses the same Unsplash avatar from original; swap src for your own image -->
+      <img class="avatar"
+           src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=150&q=80"
+           alt="RoboticsNow avatar">
     </div>
 
+    <h1 class="name">RoboticsNow</h1>
+    <p class="tagline"><span>//</span> Developer &nbsp;•&nbsp; Hardware Hacker &nbsp;•&nbsp; Tech Creator</p>
+
+    <div class="socials">
+      <a class="pill pill-yt" href="https://www.youtube.com/@RoboticsNow0" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6a3 3 0 0 0-2.1 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1C4.5 20.5 12 20.5 12 20.5s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/>
+        </svg>
+        @RoboticsNow0
+      </a>
+
+      <a class="pill pill-gh" href="https://github.com/Robotics-now" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 5.1 18 5.4 18 5.4c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/>
+        </svg>
+        Robotics-now
+      </a>
+    </div>
+  </header>
+
+  <!-- ── YOUTUBE SECTION ── -->
+  <div class="section-label">01 — YouTube Channel</div>
+
+  <div class="card yt-card">
+    <div class="yt-header">
+      <div class="yt-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6a3 3 0 0 0-2.1 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1C4.5 20.5 12 20.5 12 20.5s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="yt-name">RoboticsNow</div>
+        <div class="yt-handle">@RoboticsNow0 &nbsp;·&nbsp; youtube.com/@RoboticsNow0</div>
+      </div>
+    </div>
+
+    <p class="channel-bio">
+      Tech reviews, laptop experiments, and hands-on electronics builds — if you clicked, you're in the right place.
+      From fun laptop experiments to deep hardware dives, the channel documents the full build process so other makers can follow along and learn.
+    </p>
+
+    <div class="content-tags">
+      <span class="tag hot">Controller Integration</span>
+      <span class="tag hot">Custom PCB Assembly</span>
+      <span class="tag">Open-Source Code</span>
+      <span class="tag">ESP32 / Arduino</span>
+      <span class="tag">Tech Reviews</span>
+      <span class="tag">Visual Tutorials</span>
+    </div>
+
+    <a class="subscribe-btn" href="https://www.youtube.com/@RoboticsNow0" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6a3 3 0 0 0-2.1 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1C4.5 20.5 12 20.5 12 20.5s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/>
+      </svg>
+      Subscribe on YouTube
+    </a>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── PROJECTS SECTION ── -->
+  <div class="section-label">02 — Projects &amp; Dev</div>
+
+  <div class="projects-grid">
+    <div class="project-item">
+      <div class="project-icon">⚡</div>
+      <div class="project-name">API Frameworks</div>
+      <div class="project-desc">Blazing fast, modular backends using FastAPI — production-ready from day one.</div>
+    </div>
+    <div class="project-item">
+      <div class="project-icon">📊</div>
+      <div class="project-name">Interactive Dashboards</div>
+      <div class="project-desc">Responsive data UIs and dynamic components built with Streamlit.</div>
+    </div>
+    <div class="project-item">
+      <div class="project-icon">🤖</div>
+      <div class="project-name">Hardware &amp; Control</div>
+      <div class="project-desc">ESP32, ESP8266, and Arduino for custom electronics and robotics.</div>
+    </div>
+    <div class="project-item">
+      <div class="project-icon">🔌</div>
+      <div class="project-name">Custom PCB Design</div>
+      <div class="project-desc">Hand-assembled circuit boards designed for specific hardware projects.</div>
+    </div>
+    <div class="project-item">
+      <div class="project-icon">☁️</div>
+      <div class="project-name">Edge Scripts</div>
+      <div class="project-desc">Serverless Cloudflare Workers for low-latency web automation.</div>
+    </div>
+    <div class="project-item">
+      <div class="project-icon">🔧</div>
+      <div class="project-name">Robotics Logic</div>
+      <div class="project-desc">Sensor matrices, motor drivers, and low-level execution layers.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── STACK SECTION ── -->
+  <div class="section-label">03 — Core Stack</div>
+
+  <div class="card" style="animation-delay:0.15s">
+    <div class="stack-grid">
+      <div class="stack-item">
+        <div class="stack-dot" style="background:#3b82f6"></div>
+        <div>
+          <div class="stack-lang">Python</div>
+          <div class="stack-note">Web · Scripts · Automation</div>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-dot" style="background:#22c55e"></div>
+        <div>
+          <div class="stack-lang">FastAPI</div>
+          <div class="stack-note">Backend APIs</div>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-dot" style="background:#ff6b6b"></div>
+        <div>
+          <div class="stack-lang">Streamlit</div>
+          <div class="stack-note">Data Dashboards</div>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-dot" style="background:#a855f7"></div>
+        <div>
+          <div class="stack-lang">ESP32 / ESP8266</div>
+          <div class="stack-note">IoT · Robotics</div>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-dot" style="background:#00d9a3"></div>
+        <div>
+          <div class="stack-lang">SQLite</div>
+          <div class="stack-note">Embedded Databases</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── GITHUB SECTION ── -->
+  <div class="section-label">04 — Open Source</div>
+
+  <div class="card gh-stats-card" style="animation-delay:0.2s">
+    <!-- Header row -->
+    <div class="gh-top">
+      <div class="gh-left">
+        <div class="gh-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#e8f4ff">
+            <path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 5.1 18 5.4 18 5.4c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/>
+          </svg>
+        </div>
+        <div>
+          <div class="gh-label">Robotics-now</div>
+          <div class="gh-sub">github.com/Robotics-now</div>
+        </div>
+      </div>
+      <a class="gh-visit-btn" href="https://github.com/Robotics-now" target="_blank" rel="noopener">
+        View Profile →
+      </a>
+    </div>
+
+    <!-- Live stats cards via github-readme-stats -->
+    <div class="gh-stats-grid">
+      <a href="https://github.com/Robotics-now" target="_blank" rel="noopener" class="gh-stat-img-wrap">
+        <img
+          src="https://github-readme-stats.vercel.app/api?username=Robotics-now&show_icons=true&theme=transparent&hide_border=true&title_color=00aaff&icon_color=00aaff&text_color=e8f4ff&bg_color=00000000&ring_color=00aaff&count_private=true"
+          alt="GitHub Stats"
+          class="gh-stat-img"
+          loading="lazy"
+        />
+      </a>
+      <a href="https://github.com/Robotics-now" target="_blank" rel="noopener" class="gh-stat-img-wrap">
+        <img
+          src="https://github-readme-stats.vercel.app/api/top-langs/?username=Robotics-now&layout=compact&theme=transparent&hide_border=true&title_color=00aaff&text_color=e8f4ff&bg_color=00000000&langs_count=6"
+          alt="Top Languages"
+          class="gh-stat-img"
+          loading="lazy"
+        />
+      </a>
+    </div>
+
+    <!-- Streak stats -->
+    <a href="https://github.com/Robotics-now" target="_blank" rel="noopener" class="gh-stat-img-wrap gh-streak-wrap">
+      <img
+        src="https://streak-stats.demolab.com?user=Robotics-now&theme=transparent&hide_border=true&ring=00aaff&fire=00aaff&currStreakLabel=00aaff&sideLabels=6b8cad&dates=6b8cad&currStreakNum=e8f4ff&sideNums=e8f4ff"
+        alt="GitHub Streak"
+        class="gh-stat-img gh-streak-img"
+        loading="lazy"
+      />
+    </a>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <p>ROBOTICSNOW &nbsp;·&nbsp; BUILT WITH CIRCUITS &amp; CODE &nbsp;·&nbsp; 2025</p>
+  </footer>
+
+</div>
 </body>
 </html>
