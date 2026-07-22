@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Robotics-Now</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            500: '#10b981', 
+                            600: '#059669', 
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-900 text-slate-300 font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Navigation (Identical to Home for seamless browsing) -->
+    <nav class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo Section -->
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-3">
+                    <img src="https://raw.githubusercontent.com/Robotics-now/robotics-now/refs/heads/main/assets/Logo_new.png" alt="Robotics-Now Logo" class="h-10 w-auto object-contain rounded-md">
+                    <span class="text-white font-bold text-xl tracking-tight hidden sm:block hover:text-brand-500 transition-colors">Robotics-Now</span>
+                </a>
+                
+                <!-- Nav Links -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html#apps" class="hover:text-white transition-colors">Our Apps</a>
+                    <a href="blog.html" class="text-brand-500 font-medium">Blog & Guides</a>
+                    
+                    <!-- Social Links -->
+                    <div class="flex items-center gap-4 pl-4 border-l border-slate-700">
+                        <a href="https://github.com/Robotics-now" target="_blank" title="GitHub" class="text-slate-400 hover:text-white transition-colors">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+                        </a>
+                        <a href="https://www.youtube.com/@RoboticsNow0" target="_blank" title="YouTube" class="text-slate-400 hover:text-red-500 transition-colors">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.418-4.814a2.504 2.504 0 0 1 1.768-1.768C5.746 5 12 5 12 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z" clip-rule="evenodd"/></svg>
+                        </a>
+                        <!-- HackerRank Icon -->
+                        <a href="https://www.hackerrank.com/profile/adityaraj_imac" target="_blank" title="HackerRank" class="text-slate-400 hover:text-brand-500 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Header -->
+    <header class="py-16 bg-slate-800/30 border-b border-slate-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+                Developer <span class="text-brand-500">Log</span>
+            </h1>
+            <p class="text-lg text-slate-400">
+                Deep dives into Python API architecture, Arduino hardware programming, algorithms, and applied robotics.
+            </p>
+        </div>
+    </header>
+
+    <!-- Blog Posts Container -->
+    <main class="py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+            
+            <!-- Article 1: Python -->
+            <article class="bg-slate-800/50 rounded-2xl border border-slate-700 p-8">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-500/10 text-blue-400 text-xs font-semibold px-3 py-1 rounded-full border border-blue-500/20">Python</span>
+                    <span class="text-slate-500 text-sm">July 2026</span>
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-4">Building a Scalable Dictionary API in Python</h2>
+                <div class="prose prose-invert max-w-none text-slate-400 space-y-4">
+                    <p>
+                        When building the Robotics-Now Dictionary API, the primary goal was to create a lightweight, incredibly fast service that could handle concurrent requests without bottlenecking. Python is fantastic for prototyping, but when moving a service to production, choosing the right framework is critical. By moving away from older synchronous frameworks and embracing asynchronous Python (using libraries like FastAPI), we drastically reduced latency.
+                    </p>
+                    <p>
+                        One of the biggest challenges in handling linguistic data is the sheer size of the dataset. Instead of loading everything into memory, the application uses optimized database queries and robust caching layers. This means when a user queries for a common word, the API serves the definition from memory in milliseconds, rather than hitting the database every single time.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Article 2: Arduino & Robotics -->
+            <article class="bg-slate-800/50 rounded-2xl border border-slate-700 p-8">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-brand-500/10 text-brand-500 text-xs font-semibold px-3 py-1 rounded-full border border-brand-500/20">Arduino & Robotics</span>
+                    <span class="text-slate-500 text-sm">June 2026</span>
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-4">Bridging Software and Hardware: Intro to Arduino</h2>
+                <div class="prose prose-invert max-w-none text-slate-400 space-y-4">
+                    <p>
+                        Software engineering often feels abstract—you write code, and pixels change on a screen. Robotics and Arduino development change that dynamic entirely. When you write C++ for an Arduino microcontroller, your code directly manipulates the physical world through servos, stepper motors, and sensors.
+                    </p>
+                    <p>
+                        In my recent projects, I've been experimenting with real-time feedback loops. For example, reading data from an ultrasonic distance sensor and using that data to immediately adjust the speed of DC motors. The challenge here isn't just writing the logic; it's dealing with real-world noise. Sensor data is rarely clean. Implementing software debouncing and simple rolling average algorithms are essential skills for any robotics developer to ensure smooth, predictable hardware behavior.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Article 3: Python + Arduino (PySerial) -->
+            <article class="bg-slate-800/50 rounded-2xl border border-slate-700 p-8">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-purple-500/10 text-purple-400 text-xs font-semibold px-3 py-1 rounded-full border border-purple-500/20">Algorithms</span>
+                    <span class="text-slate-500 text-sm">May 2026</span>
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-4">Sharpening Logic on HackerRank</h2>
+                <div class="prose prose-invert max-w-none text-slate-400 space-y-4">
+                    <p>
+                        Building apps is about architecture, but solving algorithmic challenges is about raw logic. I spend a significant amount of time on HackerRank practicing core data structures and algorithms in Python. 
+                    </p>
+                    <p>
+                        Whether it's optimizing a graph traversal or figuring out the most efficient way to parse an array, these exercises directly translate to writing better, more efficient code in my production applications. Understanding time complexity (Big O notation) isn't just for passing interviews—it's the difference between an API that crashes under load and one that scales gracefully.
+                    </p>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <!-- Mandatory AdSense Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 py-12 mt-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-slate-500 text-sm">
+                &copy; 2026 Robotics-Now. All rights reserved.
+            </p>
+            <div class="flex space-x-6 text-sm text-slate-500 flex-wrap justify-center">
+                <a href="https://github.com/Robotics-now" target="_blank" class="hover:text-white transition-colors">GitHub</a>
+                <a href="https://www.youtube.com/@RoboticsNow0" target="_blank" class="hover:text-white transition-colors">YouTube</a>
+                <a href="https://www.hackerrank.com/profile/adityaraj_imac" target="_blank" class="hover:text-white transition-colors">HackerRank</a>
+                <span class="text-slate-700 hidden md:inline">|</span>
+                <!-- These links MUST exist for AdSense approval -->
+                <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a>
+                <a href="mailto:contact@yourdomain.com" class="hover:text-white transition-colors">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
