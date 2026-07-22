@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog | Robotics-Now</title>
+    <title>About | Robotics-Now</title>
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -24,7 +24,7 @@
 </head>
 <body class="bg-slate-900 text-slate-300 font-sans antialiased selection:bg-brand-500 selection:text-white">
 
-    <!-- Navigation (Identical to Home for seamless browsing) -->
+    <!-- Navigation -->
     <nav class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
@@ -37,7 +37,7 @@
                 <!-- Nav Links -->
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="index.html#apps" class="hover:text-white transition-colors">Our Apps</a>
-                    <a href="blog.html" class="text-brand-500 font-medium">Blog & Guides</a>
+                    <a href="about.html" class="text-brand-500 font-medium">About</a>
                     
                     <!-- Social Links -->
                     <div class="flex items-center gap-4 pl-4 border-l border-slate-700">
@@ -47,7 +47,6 @@
                         <a href="https://www.youtube.com/@RoboticsNow0" target="_blank" title="YouTube" class="text-slate-400 hover:text-red-500 transition-colors">
                             <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.418-4.814a2.504 2.504 0 0 1 1.768-1.768C5.746 5 12 5 12 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z" clip-rule="evenodd"/></svg>
                         </a>
-                        <!-- HackerRank Icon -->
                         <a href="https://www.hackerrank.com/profile/adityaraj_imac" target="_blank" title="HackerRank" class="text-slate-400 hover:text-brand-500 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -59,72 +58,68 @@
         </div>
     </nav>
 
-    <!-- Blog Header -->
+    <!-- About Header -->
     <header class="py-16 bg-slate-800/30 border-b border-slate-800">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
-                Developer <span class="text-brand-500">Log</span>
+                About <span class="text-brand-500">Robotics-Now</span>
             </h1>
-            <p class="text-lg text-slate-400">
-                Deep dives into Python API architecture, Arduino hardware programming, algorithms, and applied robotics.
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+                Bridging the gap between software architecture, open-source tooling, and physical hardware.
             </p>
         </div>
     </header>
 
-    <!-- Blog Posts Container -->
+    <!-- Main Content (High Text Volume for AdSense) -->
     <main class="py-16">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             
-            <!-- Article 1: Python -->
-            <article class="bg-slate-800/50 rounded-2xl border border-slate-700 p-8">
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="bg-blue-500/10 text-blue-400 text-xs font-semibold px-3 py-1 rounded-full border border-blue-500/20">Python</span>
-                    <span class="text-slate-500 text-sm">July 2026</span>
-                </div>
-                <h2 class="text-2xl font-bold text-white mb-4">Building a Scalable Dictionary API in Python</h2>
-                <div class="prose prose-invert max-w-none text-slate-400 space-y-4">
-                    <p>
-                        When building the Robotics-Now Dictionary API, the primary goal was to create a lightweight, incredibly fast service that could handle concurrent requests without bottlenecking. Python is fantastic for prototyping, but when moving a service to production, choosing the right framework is critical. By moving away from older synchronous frameworks and embracing asynchronous Python (using libraries like FastAPI), we drastically reduced latency.
-                    </p>
-                    <p>
-                        One of the biggest challenges in handling linguistic data is the sheer size of the dataset. Instead of loading everything into memory, the application uses optimized database queries and robust caching layers. This means when a user queries for a common word, the API serves the definition from memory in milliseconds, rather than hitting the database every single time.
-                    </p>
-                </div>
-            </article>
+            <!-- Section 1 -->
+            <section class="space-y-4">
+                <h2 class="text-2xl font-bold text-white">The Mission</h2>
+                <p class="text-slate-400 leading-relaxed">
+                    Robotics-Now was created out of a simple necessity: developers need better tools to manage their environments and build robust applications. Whether it is keeping track of active ports through the Localhost Manager or integrating linguistic data seamlessly via our Dictionary API, the goal is to provide open-source, lightweight, and highly optimized utilities for the modern development stack.
+                </p>
+                <p class="text-slate-400 leading-relaxed">
+                    By making these tools freely available, I hope to streamline workflows for other software engineers and hobbyists alike, allowing them to focus on writing great code rather than fighting with their local setups.
+                </p>
+            </section>
 
-            <!-- Article 2: Arduino & Robotics -->
-            <article class="bg-slate-800/50 rounded-2xl border border-slate-700 p-8">
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="bg-brand-500/10 text-brand-500 text-xs font-semibold px-3 py-1 rounded-full border border-brand-500/20">Arduino & Robotics</span>
-                    <span class="text-slate-500 text-sm">June 2026</span>
-                </div>
-                <h2 class="text-2xl font-bold text-white mb-4">Bridging Software and Hardware: Intro to Arduino</h2>
-                <div class="prose prose-invert max-w-none text-slate-400 space-y-4">
-                    <p>
-                        Software engineering often feels abstract—you write code, and pixels change on a screen. Robotics and Arduino development change that dynamic entirely. When you write C++ for an Arduino microcontroller, your code directly manipulates the physical world through servos, stepper motors, and sensors.
-                    </p>
-                    <p>
-                        In my recent projects, I've been experimenting with real-time feedback loops. For example, reading data from an ultrasonic distance sensor and using that data to immediately adjust the speed of DC motors. The challenge here isn't just writing the logic; it's dealing with real-world noise. Sensor data is rarely clean. Implementing software debouncing and simple rolling average algorithms are essential skills for any robotics developer to ensure smooth, predictable hardware behavior.
-                    </p>
-                </div>
-            </article>
+            <!-- Section 2 -->
+            <section class="space-y-4">
+                <h2 class="text-2xl font-bold text-white">Python & The Backend</h2>
+                <p class="text-slate-400 leading-relaxed">
+                    The core of my software philosophy revolves around Python. It is a language that scales beautifully from simple scripting to complex, asynchronous backend architectures. When building the Robotics-Now APIs, ensuring low latency and high concurrency was paramount. 
+                </p>
+                <p class="text-slate-400 leading-relaxed">
+                    Designing scalable backend systems means making hard choices about caching layers, database indexing, and API rate limiting. My focus is always on writing clean, maintainable code that can handle real-world traffic efficiently without unnecessary bloat.
+                </p>
+            </section>
 
-            <!-- Article 3: Python + Arduino (PySerial) -->
-            <article class="bg-slate-800/50 rounded-2xl border border-slate-700 p-8">
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="bg-purple-500/10 text-purple-400 text-xs font-semibold px-3 py-1 rounded-full border border-purple-500/20">Algorithms</span>
-                    <span class="text-slate-500 text-sm">May 2026</span>
-                </div>
-                <h2 class="text-2xl font-bold text-white mb-4">Sharpening Logic on HackerRank</h2>
-                <div class="prose prose-invert max-w-none text-slate-400 space-y-4">
-                    <p>
-                        Building apps is about architecture, but solving algorithmic challenges is about raw logic. I spend a significant amount of time on HackerRank practicing core data structures and algorithms in Python. 
-                    </p>
-                    <p>
-                        Whether it's optimizing a graph traversal or figuring out the most efficient way to parse an array, these exercises directly translate to writing better, more efficient code in my production applications. Understanding time complexity (Big O notation) isn't just for passing interviews—it's the difference between an API that crashes under load and one that scales gracefully.
-                    </p>
-                </div>
-            </article>
+            <!-- Section 3 -->
+            <section class="space-y-4">
+                <h2 class="text-2xl font-bold text-white">Arduino & Physical Computing</h2>
+                <p class="text-slate-400 leading-relaxed">
+                    Software shouldn't just live on a screen. My deep interest in robotics and Arduino development fundamentally changes how I write code. Working with microcontrollers forces you to think about memory management, real-time processing, and interacting with the physical world through sensors and actuators.
+                </p>
+                <p class="text-slate-400 leading-relaxed">
+                    Writing C++ for an Arduino board to control servos or process ultrasonic sensor data requires a different kind of problem-solving. It is about closing the loop between a digital algorithm and a physical action, which ultimately makes you a more rounded and resourceful engineer.
+                </p>
+            </section>
+
+            <!-- Section 4 -->
+            <section class="space-y-4">
+                <h2 class="text-2xl font-bold text-white">Algorithms & Logic</h2>
+                <p class="text-slate-400 leading-relaxed">
+                    Beyond building applications, I am passionate about raw computer science logic. I frequently train on platforms like HackerRank to sharpen my understanding of data structures, graph theory, and algorithmic time complexity. Optimizing a solution from O(N²) to O(N log N) isn't just an academic exercise—it directly impacts the performance and cost of the APIs and tools I build for production environments.
+                </p>
+            </section>
+
+            <div class="pt-8 border-t border-slate-800">
+                <a href="mailto:contact@yourdomain.com" class="inline-flex items-center justify-center w-full sm:w-auto bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3 px-8 rounded-lg transition-all shadow-lg shadow-brand-500/30">
+                    Get in Touch
+                </a>
+            </div>
 
         </div>
     </main>
@@ -140,7 +135,6 @@
                 <a href="https://www.youtube.com/@RoboticsNow0" target="_blank" class="hover:text-white transition-colors">YouTube</a>
                 <a href="https://www.hackerrank.com/profile/adityaraj_imac" target="_blank" class="hover:text-white transition-colors">HackerRank</a>
                 <span class="text-slate-700 hidden md:inline">|</span>
-                <!-- These links MUST exist for AdSense approval -->
                 <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
                 <a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a>
                 <a href="mailto:contact@yourdomain.com" class="hover:text-white transition-colors">Contact</a>
