@@ -1,5 +1,11 @@
 {
     "contact_email": "contact@roboticsnow.dpdns.org",
     "logo_url": "https://raw.githubusercontent.com/Robotics-now/robotics-now/refs/heads/main/assets/Logo_new.png",
-    "site_title": "Robotics-Now"
+    "site_title": "Robotics-Now",
+    "featured_repos": [
+        "NASA-apis",
+        "Dictionary_api",
+        "Localhost-Manager",
+        "robotics-now"
+    ]
 }
