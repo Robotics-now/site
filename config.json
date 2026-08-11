@@ -8,21 +8,19 @@
         "Localhost-Manager",
         "robotics-now",
         "Localhost-manager-site"
-    ]
-
-
+    ],
     "docs_repos": [
-    {
-      "title": "Main Site Repository",
-      "owner": "Robotics-now",
-      "repo": "Localhost-manager",
-      "branch": "main"
-    },
-    {
-      "title": "Secondary Project",
-      "owner": "Robotics-now",
-      "repo": "site",
-      "branch": "main"
-    }
-  ]
+        {
+            "title": "Main Site Repository",
+            "owner": "Robotics-now",
+            "repo": "localhost-manager",
+            "branch": "main"
+        },
+        {
+            "title": "Secondary Project",
+            "owner": "Robotics-now",
+            "repo": "site",
+            "branch": "main"
+        }
+    ]
 }
