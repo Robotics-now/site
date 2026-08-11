@@ -6,7 +6,7 @@
     <title>Documentation | Robotics-Now</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Marked.js CDN to render GitHub README Markdown -->
+    <!-- Marked.js CDN to render GitHub Markdown -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <!-- Tailwind Typography Plugin for GitHub-styled Markdown -->
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
@@ -56,20 +56,20 @@
             </div>
         </aside>
 
-        <!-- README Display Panel -->
+        <!-- Documentation Display Panel -->
         <section class="flex-grow bg-slate-800/30 border border-slate-700/60 rounded-xl p-6 md:p-8 min-w-0">
             <!-- Header for Selected Repo -->
             <div id="doc-header" class="border-b border-slate-700 pb-4 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                     <h1 id="selected-repo-title" class="text-2xl font-bold text-white tracking-tight">Select a repository</h1>
-                    <p id="selected-repo-desc" class="text-sm text-slate-400 mt-1">Select a project from the sidebar to read its full README.</p>
+                    <p id="selected-repo-desc" class="text-sm text-slate-400 mt-1">Select a project from the sidebar to read its documentation.</p>
                 </div>
                 <a id="selected-repo-link" href="#" target="_blank" class="hidden inline-flex items-center gap-1 text-xs bg-slate-700 hover:bg-slate-600 text-white font-medium px-3 py-1.5 rounded transition-colors self-start sm:self-auto">
                     View on GitHub &rarr;
                 </a>
             </div>
 
-            <!-- Rendered README Content -->
+            <!-- Rendered Documentation Content -->
             <div id="doc-content" class="prose prose-invert prose-emerald max-w-none prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800 text-slate-300">
                 <p class="text-slate-500 italic">Select a project to render documentation...</p>
             </div>
@@ -91,7 +91,10 @@
 
         // 1. Initial configuration loading
         fetch('config.json')
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error("HTTP error " + res.status);
+                return res.json();
+            })
             .then(data => {
                 const logo = document.getElementById('nav-logo');
                 if (logo && data.logo_url) {
@@ -103,6 +106,7 @@
                     emailLink.href = `mailto:${data.contact_email}?subject=Docs%20Inquiry`;
                 }
 
+                // Read matching key from config.json
                 const featuredRepos = data.featured_repos || [];
                 loadRepositoryDocumentation(featuredRepos);
             })
@@ -111,7 +115,7 @@
                 document.getElementById('repo-sidebar-loading').textContent = "Failed to load config.";
             });
 
-        // 2. Fetch repos and render sidebar + readmes
+        // 2. Fetch repos and render sidebar
         async function loadRepositoryDocumentation(targetRepos) {
             const sidebar = document.getElementById('repo-list');
             const loadingIndicator = document.getElementById('repo-sidebar-loading');
@@ -135,7 +139,7 @@
                     return;
                 }
 
-                activeRepos.forEach((repo, index) => {
+                activeRepos.forEach((repo) => {
                     repoDataMap[repo.name] = repo;
 
                     const li = document.createElement('li');
@@ -156,7 +160,7 @@
             }
         }
 
-        // 3. Render README for a selected repository
+        // 3. Render Documentation (Wiki Home for Dictionary_api, README for others)
         async function selectRepo(repoName) {
             const repo = repoDataMap[repoName];
             if (!repo) return;
@@ -177,33 +181,50 @@
             document.getElementById('selected-repo-desc').textContent = repo.description || 'No description provided.';
             
             const githubLink = document.getElementById('selected-repo-link');
-            githubLink.href = repo.html_url;
+
+            // Handle special case for Dictionary_api (Wiki vs standard README)
+            const isDictionaryApi = repoName.toLowerCase() === 'dictionary_api';
+
+            if (isDictionaryApi) {
+                githubLink.href = `https://github.com/${GITHUB_OWNER}/${repo.name}/wiki`;
+            } else {
+                githubLink.href = repo.html_url;
+            }
             githubLink.classList.remove('hidden');
 
-            // Render Loading state in Content Area
+            // Render Loading state
             const contentArea = document.getElementById('doc-content');
-            contentArea.innerHTML = `<p class="text-slate-400 animate-pulse">Fetching README for ${repo.name}...</p>`;
+            contentArea.innerHTML = `<p class="text-slate-400 animate-pulse">Fetching documentation for ${repo.name}... </p>`;
 
-            // Fetch README content
             try {
-                const readmeRes = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${repo.name}/readme`, {
-                    headers: { 'Accept': 'application/vnd.github.v3+json' }
-                });
+                let markdownText = "";
 
-                if (readmeRes.ok) {
+                if (isDictionaryApi) {
+                    // Fetch raw Home page from GitHub Wiki
+                    const wikiRes = await fetch(`https://raw.githubusercontent.com/wiki/${GITHUB_OWNER}/${repo.name}/Home.md`);
+                    
+                    if (!wikiRes.ok) throw new Error('Wiki Home page not found.');
+                    markdownText = await wikiRes.text();
+
+                } else {
+                    // Fetch standard README via GitHub REST API
+                    const readmeRes = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${repo.name}/readme`, {
+                        headers: { 'Accept': 'application/vnd.github.v3+json' }
+                    });
+
+                    if (!readmeRes.ok) throw new Error('README not found.');
                     const readmeData = await readmeRes.json();
                     
-                    // Decode base64 markdown string safely handles UTF-8 strings
-                    const rawMarkdown = decodeURIComponent(escape(atob(readmeData.content)));
-                    
-                    // Parse markdown to HTML
-                    contentArea.innerHTML = marked.parse(rawMarkdown);
-                } else {
-                    contentArea.innerHTML = `<p class="text-slate-500 italic">No README file found for this repository.</p>`;
+                    // Decode base64 markdown string safely handling UTF-8 characters
+                    markdownText = decodeURIComponent(escape(atob(readmeData.content)));
                 }
+
+                // Render Markdown to HTML
+                contentArea.innerHTML = marked.parse(markdownText);
+
             } catch (err) {
-                console.error("Error fetching README:", err);
-                contentArea.innerHTML = `<p class="text-red-400">Failed to load README. Please check console or try again later.</p>`;
+                console.error("Error fetching documentation:", err);
+                contentArea.innerHTML = `<p class="text-slate-500 italic">No documentation found for this repository.</p>`;
             }
         }
     </script>
