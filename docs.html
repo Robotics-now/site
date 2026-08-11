@@ -103,7 +103,7 @@
                     emailLink.href = `mailto:${data.contact_email}?subject=Docs%20Inquiry`;
                 }
 
-                const featuredRepos = data.featured_repositories || [];
+                const featuredRepos = data.featured_repos || [];
                 loadRepositoryDocumentation(featuredRepos);
             })
             .catch(err => {
