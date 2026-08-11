@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation | Robotics-Now</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Marked.js CDN to render GitHub README Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Tailwind Typography Plugin for GitHub-styled Markdown -->
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -17,13 +22,13 @@
         }
     </script>
 </head>
-<body class="bg-slate-900 text-slate-300 min-h-screen flex flex-col">
+<body class="bg-slate-900 text-slate-300 min-h-screen flex flex-col font-sans">
 
-    <!-- Navigation -->
+    <!-- Navigation Header -->
     <nav class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2">
-                <img id="nav-logo" src="" alt="Logo" class="h-8 w-8 rounded">
+                <img id="nav-logo" src="" alt="Logo" class="h-8 w-8 rounded hidden">
                 <span class="font-bold text-white text-xl">Docs</span>
             </a>
             <div class="flex gap-6 text-sm font-medium">
@@ -33,42 +38,43 @@
         </div>
     </nav>
 
-    <!-- Content Area -->
-    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row gap-12">
+    <!-- Main Workspace -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row gap-8">
         
-        <!-- Sidebar Navigation -->
+        <!-- Sidebar Navigation (Projects List) -->
         <aside class="w-full md:w-64 flex-shrink-0">
-            <nav class="sticky top-24 space-y-8">
-                <div>
-                    <h4 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Getting Started</h4>
-                    <ul class="space-y-2 text-sm border-l border-slate-800 pl-4">
-                        <li><a href="#installation" class="text-slate-400 hover:text-brand-500">Installation</a></li>
-                        <li><a href="#configuration" class="text-slate-400 hover:text-brand-500">Configuration</a></li>
-                    </ul>
+            <div class="sticky top-24 bg-slate-800/40 border border-slate-700/60 rounded-xl p-4">
+                <h4 class="text-white font-bold mb-4 uppercase text-xs tracking-wider border-b border-slate-700 pb-2">
+                    Repositories
+                </h4>
+                <div id="repo-sidebar-loading" class="text-xs text-slate-500 animate-pulse">
+                    Loading repositories...
                 </div>
-                <div>
-                    <h4 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Components</h4>
-                    <ul class="space-y-2 text-sm border-l border-slate-800 pl-4">
-                        <li><a href="#repo-card" class="text-slate-400 hover:text-brand-500">Repository Card</a></li>
-                        <li><a href="#nav-bar" class="text-slate-400 hover:text-brand-500">Navigation Bar</a></li>
-                    </ul>
-                </div>
-            </nav>
+                <ul id="repo-list" class="space-y-1 text-sm">
+                    <!-- Project tab items injected here by JS -->
+                </ul>
+            </div>
         </aside>
 
-        <!-- Documentation Body -->
-        <article class="prose prose-invert prose-slate max-w-none w-full">
-            <h1 id="installation">Installation</h1>
-            <p>To initialize the project, ensure you have the core framework dependencies linked in your HTML head. This documentation assumes you are using Tailwind CSS for styling.</p>
-            
-            <pre class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-sm overflow-x-auto"><code>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</code></pre>
+        <!-- README Display Panel -->
+        <section class="flex-grow bg-slate-800/30 border border-slate-700/60 rounded-xl p-6 md:p-8 min-w-0">
+            <!-- Header for Selected Repo -->
+            <div id="doc-header" class="border-b border-slate-700 pb-4 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h1 id="selected-repo-title" class="text-2xl font-bold text-white tracking-tight">Select a repository</h1>
+                    <p id="selected-repo-desc" class="text-sm text-slate-400 mt-1">Select a project from the sidebar to read its full README.</p>
+                </div>
+                <a id="selected-repo-link" href="#" target="_blank" class="hidden inline-flex items-center gap-1 text-xs bg-slate-700 hover:bg-slate-600 text-white font-medium px-3 py-1.5 rounded transition-colors self-start sm:self-auto">
+                    View on GitHub &rarr;
+                </a>
+            </div>
 
-            <h2 id="configuration">Configuration</h2>
-            <p>Modify the <code>config.json</code> file located in your root directory to update site-wide branding. The hydration script will automatically pull these values into the UI.</p>
+            <!-- Rendered README Content -->
+            <div id="doc-content" class="prose prose-invert prose-emerald max-w-none prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800 text-slate-300">
+                <p class="text-slate-500 italic">Select a project to render documentation...</p>
+            </div>
+        </section>
 
-            <h2 id="repo-card">Repository Card</h2>
-            <p>The repository cards are generated dynamically using the <code>fetchFeaturedRepos()</code> function. Ensure your repository name exists in the <code>config.json</code> list exactly as it appears on GitHub.</p>
-        </article>
     </main>
 
     <!-- Footer -->
@@ -76,22 +82,130 @@
         &copy; <span id="year"></span> Robotics-Now. All rights reserved.
     </footer>
 
-    <!-- Global Hydration Script -->
+    <!-- Logic Script -->
     <script>
-        // Set Year
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Hydrate from config.json
+        const GITHUB_OWNER = 'Robotics-now';
+        let repoDataMap = {}; // Cache for repository meta and readmes
+
+        // 1. Initial configuration loading
         fetch('config.json')
-            .then(response => response.json())
+            .then(res => res.json())
             .then(data => {
                 const logo = document.getElementById('nav-logo');
-                if (logo) logo.src = data.logo_url;
-
+                if (logo && data.logo_url) {
+                    logo.src = data.logo_url;
+                    logo.classList.remove('hidden');
+                }
                 const emailLink = document.getElementById('email-link');
-                if (emailLink) emailLink.href = `mailto:${data.contact_email}?subject=Docs%20Inquiry`;
+                if (emailLink && data.contact_email) {
+                    emailLink.href = `mailto:${data.contact_email}?subject=Docs%20Inquiry`;
+                }
+
+                const featuredRepos = data.featured_repositories || [];
+                loadRepositoryDocumentation(featuredRepos);
             })
-            .catch(err => console.error("Config load failed:", err));
+            .catch(err => {
+                console.error("Failed to load config.json:", err);
+                document.getElementById('repo-sidebar-loading').textContent = "Failed to load config.";
+            });
+
+        // 2. Fetch repos and render sidebar + readmes
+        async function loadRepositoryDocumentation(targetRepos) {
+            const sidebar = document.getElementById('repo-list');
+            const loadingIndicator = document.getElementById('repo-sidebar-loading');
+
+            try {
+                const res = await fetch(`https://api.github.com/users/${GITHUB_OWNER}/repos?per_page=100`);
+                if (!res.ok) throw new Error('GitHub API request failed');
+                
+                const allRepos = await res.json();
+                
+                // Match items against config or fallback to all repos if list empty
+                const activeRepos = targetRepos.length > 0 
+                    ? targetRepos.map(name => allRepos.find(r => r.name.toLowerCase() === name.toLowerCase())).filter(Boolean)
+                    : allRepos;
+
+                loadingIndicator.classList.add('hidden');
+                sidebar.innerHTML = '';
+
+                if (activeRepos.length === 0) {
+                    sidebar.innerHTML = '<li class="text-xs text-slate-500">No repositories found.</li>';
+                    return;
+                }
+
+                activeRepos.forEach((repo, index) => {
+                    repoDataMap[repo.name] = repo;
+
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <button onclick="selectRepo('${repo.name}')" id="btn-${repo.name}" class="w-full text-left px-3 py-2 rounded-md font-medium text-slate-400 hover:text-white hover:bg-slate-800/80 transition-all flex justify-between items-center text-sm truncate">
+                            <span class="truncate">${repo.name}</span>
+                        </button>
+                    `;
+                    sidebar.appendChild(li);
+                });
+
+                // Automatically load first repository
+                selectRepo(activeRepos[0].name);
+
+            } catch (err) {
+                console.error("Error loading repositories:", err);
+                loadingIndicator.textContent = "Error fetching repos from GitHub.";
+            }
+        }
+
+        // 3. Render README for a selected repository
+        async function selectRepo(repoName) {
+            const repo = repoDataMap[repoName];
+            if (!repo) return;
+
+            // Highlight sidebar selection
+            document.querySelectorAll('#repo-list button').forEach(btn => {
+                btn.classList.remove('bg-brand-500/10', 'text-brand-500', 'font-semibold');
+                btn.classList.add('text-slate-400');
+            });
+            const activeBtn = document.getElementById(`btn-${repoName}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-brand-500/10', 'text-brand-500', 'font-semibold');
+                activeBtn.classList.remove('text-slate-400');
+            }
+
+            // Update UI Header
+            document.getElementById('selected-repo-title').textContent = repo.name;
+            document.getElementById('selected-repo-desc').textContent = repo.description || 'No description provided.';
+            
+            const githubLink = document.getElementById('selected-repo-link');
+            githubLink.href = repo.html_url;
+            githubLink.classList.remove('hidden');
+
+            // Render Loading state in Content Area
+            const contentArea = document.getElementById('doc-content');
+            contentArea.innerHTML = `<p class="text-slate-400 animate-pulse">Fetching README for ${repo.name}...</p>`;
+
+            // Fetch README content
+            try {
+                const readmeRes = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${repo.name}/readme`, {
+                    headers: { 'Accept': 'application/vnd.github.v3+json' }
+                });
+
+                if (readmeRes.ok) {
+                    const readmeData = await readmeRes.json();
+                    
+                    // Decode base64 markdown string safely handles UTF-8 strings
+                    const rawMarkdown = decodeURIComponent(escape(atob(readmeData.content)));
+                    
+                    // Parse markdown to HTML
+                    contentArea.innerHTML = marked.parse(rawMarkdown);
+                } else {
+                    contentArea.innerHTML = `<p class="text-slate-500 italic">No README file found for this repository.</p>`;
+                }
+            } catch (err) {
+                console.error("Error fetching README:", err);
+                contentArea.innerHTML = `<p class="text-red-400">Failed to load README. Please check console or try again later.</p>`;
+            }
+        }
     </script>
 </body>
 </html>
