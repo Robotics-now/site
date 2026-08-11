@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | Robotics-Now</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 500: '#10b981', 600: '#059669' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-900 text-slate-300 min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <img id="nav-logo" src="" alt="Logo" class="h-8 w-8 rounded">
+                <span class="font-bold text-white text-xl">Docs</span>
+            </a>
+            <div class="flex gap-6 text-sm font-medium">
+                <a href="index.html" class="hover:text-brand-500 transition-colors">Home</a>
+                <a id="email-link" href="#" class="hover:text-brand-500 transition-colors">Support</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content Area -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row gap-12">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 flex-shrink-0">
+            <nav class="sticky top-24 space-y-8">
+                <div>
+                    <h4 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Getting Started</h4>
+                    <ul class="space-y-2 text-sm border-l border-slate-800 pl-4">
+                        <li><a href="#installation" class="text-slate-400 hover:text-brand-500">Installation</a></li>
+                        <li><a href="#configuration" class="text-slate-400 hover:text-brand-500">Configuration</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Components</h4>
+                    <ul class="space-y-2 text-sm border-l border-slate-800 pl-4">
+                        <li><a href="#repo-card" class="text-slate-400 hover:text-brand-500">Repository Card</a></li>
+                        <li><a href="#nav-bar" class="text-slate-400 hover:text-brand-500">Navigation Bar</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Documentation Body -->
+        <article class="prose prose-invert prose-slate max-w-none w-full">
+            <h1 id="installation">Installation</h1>
+            <p>To initialize the project, ensure you have the core framework dependencies linked in your HTML head. This documentation assumes you are using Tailwind CSS for styling.</p>
+            
+            <pre class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-sm overflow-x-auto"><code>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</code></pre>
+
+            <h2 id="configuration">Configuration</h2>
+            <p>Modify the <code>config.json</code> file located in your root directory to update site-wide branding. The hydration script will automatically pull these values into the UI.</p>
+
+            <h2 id="repo-card">Repository Card</h2>
+            <p>The repository cards are generated dynamically using the <code>fetchFeaturedRepos()</code> function. Ensure your repository name exists in the <code>config.json</code> list exactly as it appears on GitHub.</p>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-8 text-center text-sm text-slate-500">
+        &copy; <span id="year"></span> Robotics-Now. All rights reserved.
+    </footer>
+
+    <!-- Global Hydration Script -->
+    <script>
+        // Set Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Hydrate from config.json
+        fetch('config.json')
+            .then(response => response.json())
+            .then(data => {
+                const logo = document.getElementById('nav-logo');
+                if (logo) logo.src = data.logo_url;
+
+                const emailLink = document.getElementById('email-link');
+                if (emailLink) emailLink.href = `mailto:${data.contact_email}?subject=Docs%20Inquiry`;
+            })
+            .catch(err => console.error("Config load failed:", err));
+    </script>
+</body>
+</html>
